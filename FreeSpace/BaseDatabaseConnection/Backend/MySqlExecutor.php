@@ -89,6 +89,8 @@ class MySqlExecutor implements ICommandExecutor{
     /**
      * Load data
      * <<Using datamodel command for filter record>>
+     * @param DataModelBase $model
+     * Database model object for create
      * @return DataModel
      * (NULL if not found)
      */
@@ -104,6 +106,8 @@ class MySqlExecutor implements ICommandExecutor{
     /**
      * Delete record
      * <<Require datamodel command>>
+     * @param DataModelBase $model
+     * Database model object for create
      * [Example command]
      *  ID = '1'
      */
@@ -117,13 +121,17 @@ class MySqlExecutor implements ICommandExecutor{
     /**
      * Submit change
      * <<Require datamodel command>>
-     * @return bool
-     * Operation status
+     * @param DataModelBase $model
+     * Database model object for create
+     * @param DataModelBase $setOperation
+     * Set operation command
+     * [Example]
+     * SET Age = '36'
      */
-    public function Update(DataModelBase $model) {
-        $status = FALSE;
+    public function Update(DataModelBase $model,$setOperation) {
         if($this->IsConnected){
-            // TODO : Update command
+            $command = "UPDATE $model->TableName SET $setOperation WHERE $model->Command";
+            mysql_query($command, $this->_connection->Connection);
         }
     }
 

@@ -8,6 +8,8 @@ interface ICommandExecutor {
     /**
      * Load data
      * <<Using datamodel command for filter record>>
+     * @param DataModelBase $model
+     * Database model object for create
      * @return DataModel
      * (NULL if not found)
      */
@@ -15,6 +17,11 @@ interface ICommandExecutor {
 
     /**
      * Insertion to database
+     * @param DataModelBase $model
+     * Database model object for create
+     * @param int $primaryKeyLength
+     * Primary key length
+     * <<Default 40>>
      * @return bool
      * Operation status
      */
@@ -23,16 +30,22 @@ interface ICommandExecutor {
     /**
      * Submit change
      * <<Require datamodel command>>
-     * @return bool
-     * Operation status
+     * @param DataModelBase $model
+     * Database model object for create
+     * @param DataModelBase $setOperation
+     * Set operation command
+     * [Example]
+     * SET Age = '36'
      */
-    public function Update(DataModelBase $model);
+    public function Update(DataModelBase $model,$setOperation);
 
-    /**
+     /**
      * Delete record
      * <<Require datamodel command>>
-     * @return bool
-     * Operation status
+     * @param DataModelBase $model
+     * Database model object for create
+     * [Example command]
+     *  ID = '1'
      */
     public function Remove(DataModelBase $model);
 }

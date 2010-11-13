@@ -27,15 +27,6 @@ if($excutor->IsConnected) echo "<br>Connect success.</br>";
 else echo "<br>Connect fail: $excutor->ErrorMessage</br>";
 echo "<br>Connected value: $excutor->IsConnected</br>";
 
-// Insert
-//$excutor->Create($model);
-//
-//if($excutor->Create($model))echo "<br>Inser succes</br>";
-//else echo "<br>Inser fail: $excutor->ErrorMessage</br>";
-
-// Delete
-//$excutor->Remove($model);
-
 // Select
 //$model->Command = "Name='Yehoo'";
 //$queryResult = $excutor->Load($model);
@@ -45,12 +36,29 @@ echo "<br>Connected value: $excutor->IsConnected</br>";
 //}
 
 
-function XXX($type){
-    $g = new $type();
-    echo $g->TT;
-    echo $g->TT1;
-}
+// Insert
+//$excutor->Create($model);
+//
+//if($excutor->Create($model))echo "<br>Inser succes</br>";
+//else echo "<br>Inser fail: $excutor->ErrorMessage</br>";
 
-XXX(MySqlExecutor);
+
+// Update
+//$model->Command = "ID='439dba939c1af631efd420e519a5e9a9'";
+//$excutor->Update($model, "Name='It adas'");
+
+
+
+// Delete
+//$excutor->Remove($model);
+
+
+//function XXX($type){
+//    $g = new $type();
+//    echo $g->TT;
+//    echo $g->TT1;
+//}
+//
+//XXX(MySqlExecutor);
 
 ?>
