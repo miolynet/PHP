@@ -18,5 +18,11 @@ abstract class DataModelBase implements IDataModel{
      * @var string
      */
     public $Command;
+
+    /**
+     * Primary key
+     * @var string
+     */
+    public $PrimaryKey;
 }
 ?>

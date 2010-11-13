@@ -8,10 +8,10 @@ interface ICommandExecutor {
     /**
      * Load data
      * <<Using datamodel command for filter record>>
-     * @return IDataModel 
+     * @return DataModel
      * (NULL if not found)
      */
-    public function Load($condition = NULL);
+    public function Load(DataModelBase $model);
 
     /**
      * Insertion to database

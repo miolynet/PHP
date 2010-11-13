@@ -8,17 +8,16 @@ require_once "DAL/IDatabaseConnection.php";
 abstract class DatabaseConnectionBase implements IDatabaseConnection{
 
     /**
-     * Database connection status
-     * @var bool
-     */
-    public $IsConnected;
-
-    /**
      * Error message from server
      * @var string
      */
     public $ErrorMessage;
 
+    /**
+     * Connection statement
+     * @var Connection Connection
+     */
+    public $Connection;
      /**
      * Host navigation name
      * @var string
@@ -43,16 +42,13 @@ abstract class DatabaseConnectionBase implements IDatabaseConnection{
      */
     protected $DatabaseName;
 
-    /**
-     * Connection statement
-     * @var Connection Connection
-     */
-    protected $Connection;
 
     /**
      * Initialize database connection
      * @param string $username
      * Account username
+     * @param string $hostUri
+     * Host connection URL
      * @param string $password
      * Account password
      * @param string $database
@@ -60,8 +56,9 @@ abstract class DatabaseConnectionBase implements IDatabaseConnection{
      * @param bool $isConnected
      * Set auto connection (Default True)
      */
-    public function __construct($username,$password,$database,$isConnected = TRUE){
-        $this->HostUrl = MySqlConnection::Hosting;
+    public function __construct($hostUri,$username,$password,$database,$isConnected = TRUE){
+        // assign members value
+        $this->HostUrl = $hostUri;
         $this->Username = $username;
         $this->Password = $password;
         $this->DatabaseName = $database;
@@ -70,24 +67,37 @@ abstract class DatabaseConnectionBase implements IDatabaseConnection{
     }
 
     /**
+     * Confirm disconnec database
+     */
+    public function __destruct() {
+        if($this->Connection) $this->Disconnect();
+    }
+
+    /**
      * Open connection
      * @return bool
      * Connection status
      */
     public function Connect() {
-        $this->Connection = mysql_connect($this->HostUrl, $this->Username, $this->Password, $this->DatabaseName);
-        if($this->Connection)$this->IsConnected = TRUE;
-        else $this->ErrorMessage = mysql_errno();
-        return $this->IsConnected;
+        // Open connection
+        $this->Connection = mysql_connect($this->HostUrl, $this->Username, $this->Password);
+
+        // Connect to database
+        if($this->Connection){
+            $dbConnect = mysql_select_db($this->DatabaseName);
+            if(!$dbConnect) {
+                $this->ErrorMessage = mysql_error();
+                $this->Disconnect();
+            }
+        }
+        return $this->Connection;
     }
 
     /**
      * Close connection
      */
     public function Disconnect() {
-        if ($this->IsConnected) {
-            mysql_close($this->Connection);
-        }
+        if ($this->Connection) $this->Connection = FALSE;
     }
 }
 ?>
