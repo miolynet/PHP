@@ -1,12 +1,12 @@
 <?php
-require_once "DatabaseConnectionBase.php";
+require_once "BaseDatabaseConnection.php";
 
 /**
  * MySqlConnection
  * For open connection to MySql server
  * @author Sakul
  */
-class MySqlConnection extends DatabaseConnectionBase{
+class MySqlConnection extends BaseDatabaseConnection{
 
     /**
      * Host connection URL

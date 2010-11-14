@@ -1,12 +1,12 @@
 <?php
-require_once "DAL/IDataModel.php";
+require_once "IDataModel.php";
 
 /**
  * DataModelBase
  * Attribute for any object contact to database
  * @author Sakul
  */
-abstract class DataModelBase implements IDataModel{
+abstract class BaseDataModel implements IDataModel{
     /**
      * This model from table name
      * @var string
@@ -20,7 +20,7 @@ abstract class DataModelBase implements IDataModel{
     public $Command;
 
     /**
-     * Primary key
+     * Object identify
      * @var string
      */
     public $PrimaryKey;

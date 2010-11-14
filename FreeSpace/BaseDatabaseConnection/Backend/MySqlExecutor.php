@@ -1,7 +1,7 @@
 <?php
-require_once "../Global/DatabaseFunctions.php";
+require_once "../Global/KeyGenerators.php";
 require_once "MySqlConnection.php";
-require_once "DAL/ICommandExecutor.php";
+require_once "ICommandExecutor.php";
 
 /**
  * ContactExecutor
@@ -57,7 +57,7 @@ class MySqlExecutor implements ICommandExecutor{
 
     /**
      * Insertion to database
-     * @param DataModelBase $model
+     * @param BaseDataModel $model
      * Database model object for create
      * @param int $primaryKeyLength
      * Primary key length
@@ -65,12 +65,11 @@ class MySqlExecutor implements ICommandExecutor{
      * @return bool
      * Operation status
      */
-    public function Create(DataModelBase $model,$primaryKeyLength = 40) {
+    public function Create(BaseDataModel $model,$primaryKeyLength = 40) {
         $status = FALSE;
         if($this->IsConnected){
 
-            $dbFunction = new DatabaseFunctions();
-            $model->PrimaryKey = $dbFunction->GeneratePrimaryKeyString($primaryKeyLength);
+            $model->PrimaryKey = KeyGenerators::PrimaryKey($primaryKeyLength);
 
             // initialize command
             $columns = $model->ColumnNames();
@@ -89,12 +88,12 @@ class MySqlExecutor implements ICommandExecutor{
     /**
      * Load data
      * <<Using datamodel command for filter record>>
-     * @param DataModelBase $model
+     * @param BaseDataModel $model
      * Database model object for create
      * @return DataModel
      * (NULL if not found)
      */
-    public function Load(DataModelBase $model) {
+    public function Load(BaseDataModel $model) {
         if($this->IsConnected){
             $command = "SELECT * FROM $model->TableName";
             if(!empty ($model->Command)) $command.= " WHERE $model->Command";
@@ -106,12 +105,12 @@ class MySqlExecutor implements ICommandExecutor{
     /**
      * Delete record
      * <<Require datamodel command>>
-     * @param DataModelBase $model
+     * @param BaseDataModel $model
      * Database model object for create
      * [Example command]
      *  ID = '1'
      */
-    public function Remove(DataModelBase $model) {
+    public function Remove(BaseDataModel $model) {
         if($this->IsConnected){
             $command = "DELETE FROM $model->TableName WHERE $model->Command";
             mysql_query($command, $this->_connection->Connection);
@@ -121,14 +120,14 @@ class MySqlExecutor implements ICommandExecutor{
     /**
      * Submit change
      * <<Require datamodel command>>
-     * @param DataModelBase $model
+     * @param BaseDataModel $model
      * Database model object for create
-     * @param DataModelBase $setOperation
+     * @param string $setOperation
      * Set operation command
      * [Example]
      * SET Age = '36'
      */
-    public function Update(DataModelBase $model,$setOperation) {
+    public function Update(BaseDataModel $model,$setOperation) {
         if($this->IsConnected){
             $command = "UPDATE $model->TableName SET $setOperation WHERE $model->Command";
             mysql_query($command, $this->_connection->Connection);

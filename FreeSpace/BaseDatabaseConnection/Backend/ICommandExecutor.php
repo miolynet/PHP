@@ -13,7 +13,7 @@ interface ICommandExecutor {
      * @return DataModel
      * (NULL if not found)
      */
-    public function Load(DataModelBase $model);
+    public function Load(BaseDataModel $model);
 
     /**
      * Insertion to database
@@ -25,7 +25,7 @@ interface ICommandExecutor {
      * @return bool
      * Operation status
      */
-    public function Create(DataModelBase $model);
+    public function Create(BaseDataModel $model);
 
     /**
      * Submit change
@@ -37,7 +37,7 @@ interface ICommandExecutor {
      * [Example]
      * SET Age = '36'
      */
-    public function Update(DataModelBase $model,$setOperation);
+    public function Update(BaseDataModel $model,$setOperation);
 
      /**
      * Delete record
@@ -47,6 +47,6 @@ interface ICommandExecutor {
      * [Example command]
      *  ID = '1'
      */
-    public function Remove(DataModelBase $model);
+    public function Remove(BaseDataModel $model);
 }
 ?>

@@ -1,8 +1,8 @@
 <?php
 require_once "../Backend/MySqlExecutor.php";
-require_once "../Backend/DataModelBase.php";
+require_once "../Backend/BaseDataModel.php";
 
-class Test_Student extends DataModelBase{
+class Test_Student extends BaseDataModel{
     
     public $ID;
     public $Name;
@@ -39,8 +39,8 @@ echo "<br>Connected value: $excutor->IsConnected</br>";
 // Insert
 //$excutor->Create($model);
 //
-//if($excutor->Create($model))echo "<br>Inser succes</br>";
-//else echo "<br>Inser fail: $excutor->ErrorMessage</br>";
+if($excutor->Create($model))echo "<br>Inser succes</br>";
+else echo "<br>Inser fail: $excutor->ErrorMessage</br>";
 
 
 // Update

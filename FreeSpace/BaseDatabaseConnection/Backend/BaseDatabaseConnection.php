@@ -1,11 +1,11 @@
 <?php
-require_once "DAL/IDatabaseConnection.php";
+require_once "IDatabaseConnection.php";
 /**
  * SQLConnection
  * Base for model connection
  * @author Sakul
  */
-abstract class DatabaseConnectionBase implements IDatabaseConnection{
+abstract class BaseDatabaseConnection implements IDatabaseConnection{
 
     /**
      * Error message from server
