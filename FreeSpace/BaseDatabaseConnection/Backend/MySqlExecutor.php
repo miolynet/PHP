@@ -1,5 +1,5 @@
 <?php
-require_once "../Global/KeyGenerators.php";
+require_once "../Global/Generator/KeyGenerators.php";
 require_once "MySqlConnection.php";
 require_once "ICommandExecutor.php";
 
@@ -90,7 +90,7 @@ class MySqlExecutor implements ICommandExecutor{
      * <<Using datamodel command for filter record>>
      * @param BaseDataModel $model
      * Database model object for create
-     * @return DataModel
+     * @return DataModel[]
      * (NULL if not found)
      */
     public function Load(BaseDataModel $model) {
@@ -131,6 +131,29 @@ class MySqlExecutor implements ICommandExecutor{
         if($this->IsConnected){
             $command = "UPDATE $model->TableName SET $setOperation WHERE $model->Command";
             mysql_query($command, $this->_connection->Connection);
+        }
+    }
+
+    /**
+     * Select data from source table
+     * @param value $conditionValue
+     * Select data from this value condition
+     * @param string $sourcePropertySelectName
+     * Name in table you want to get
+     * @param string $sourceTableName
+     * Select from this table name
+     * @param string> $sourcePropertyKeyName
+     * Source key name
+     * @return DataModel[]
+     * (NULL if not found)
+     */
+    public function JoinTable($conditionValue, $sourcePropertySelectName, $sourceTableName, $sourcePropertyKeyName) {
+        if($this->IsConnected){
+            // TODO: uncheck JoinTable
+            $command = "SELECT $sourceTableName.$sourcePropertySelectName";
+            $command.= "FROM $sourceTableName";
+            $command.= "WHERE $sourcePropertyKeyName = '$conditionValue'";
+            return mysql_query($command, $this->_connection->Connection);
         }
     }
 
