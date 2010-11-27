@@ -23,17 +23,21 @@ abstract class BaseAccountVerify {
     }
 
     /**
-     * Start connect to database
-     * @param string $username
-     * Login account name
-     * @param string $password
-     * Login account password
-     * @param string $database
-     * Connecto this database name
+     * Login
+     * @param BaseAccount $account
+     * @return BaseAccount
+     * Account login status
      */
-    public function SecurityConnection($username,$password,$database){
-        if(!(empty ($username) || empty ($password) || empty ($database) ))
-            $this->_executor->SecurityConnection ($username, $password, $database);
+    public function Login(BaseAccount $account){
+
+        $QuerySuccess = 1;
+        if($this->_executor->IsConnected){
+            $account->Command = "Username='$account->Username' AND Password='$account->Password'";
+            $query = $this->_executor->Load($account);
+            if(mysql_num_rows($query) >= $QuerySuccess) $account->IsAuthenticationAccept = TRUE;
+        }
+
+        return $account;
     }
 
     /**

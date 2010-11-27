@@ -21,7 +21,6 @@ class AccountAuthentication extends BaseAccountVerify{
      * Connection status
      */
     public function ChangeInformation(BaseAccount $account, $setOperation){
-        // TODO : ChangeInformation
         // check connection
         if($this->_executor->IsConnected)
             $this->_executor->Update($account, $setOperation);
@@ -34,11 +33,9 @@ class AccountAuthentication extends BaseAccountVerify{
      * @return Array
      */
     protected function GetInformation(BaseAccount $account){
-        // TODO : GetInformation
         // check connection
-        if($this->_executor->IsConnected){
-
-        }
+        if($this->_executor->IsConnected)
+            return $this->_executor->Load($account);
     }
 }
 ?>
