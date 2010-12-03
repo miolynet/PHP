@@ -32,7 +32,7 @@ class MySqlExecutor implements ICommandExecutor{
      * <<Low security and privilege>>
      */
     public function __construct() {
-        $this->SecurityConnection("root", "1234", "miolynet");
+        $this->SecurityConnection("root", "1234", "clinic");
     }
 
     // confirm disconnect

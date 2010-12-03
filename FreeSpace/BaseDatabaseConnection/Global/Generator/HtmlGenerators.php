@@ -21,7 +21,7 @@ class HtmlGenerators {
      * <<Default TRUE>>
      * @return string Html code
      */
-    public static function ComboBoxObjectModel($itemName, $sourceElement, $propertyValueName, $propertyDisplayName, $isFirstSelected = TRUE){
+    public static function SqlComboBox($itemName, $sourceElement, $propertyValueName, $propertyDisplayName, $isFirstSelected = TRUE){
         $htmlCode = "<select name=$itemName>";
         $isFirstElement = TRUE;
         while($row = mysql_fetch_array($sourceElement))
@@ -35,6 +35,9 @@ class HtmlGenerators {
         return $htmlCode;
     }
 
+    public static function LinkMenu($displayText, $Url, $minimumPrivilegeLevel, $displayOnLoinOnly = false){
+        
+    }
 
 }
 ?>
