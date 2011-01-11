@@ -82,6 +82,10 @@ abstract class BaseDatabaseConnection implements IDatabaseConnection{
         // Open connection
         $this->Connection = mysql_connect($this->HostUrl, $this->Username, $this->Password);
 
+        // Set charactor encode font
+        $characterEncode = "SET NAMES UTF8";
+        mysql_query($characterEncode);
+
         // Connect to database
         if($this->Connection){
             $dbConnect = mysql_select_db($this->DatabaseName);
